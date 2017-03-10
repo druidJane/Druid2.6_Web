@@ -1,0 +1,2 @@
+﻿查找最新版本：
+$ npm dist-tags ls xxx

@@ -1,0 +1,115 @@
+html, body{font-family:"Open Sans", sans-serif;font-size:14px;-webkit-font-smoothing:antialiased;height:100%;}
+body{color:#000000;padding:0 0 0 0;}
+a, a:visited{color: #bcbde8; text-decoration: none; outline: none !important;}
+a:hover, a:focus{color:#ffffff; text-decoration: none;}
+
+/*登录页面*/
+.login_wrap{
+    position: absolute;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    overflow: auto;
+    background: url('./images/login_bc.jpg') center no-repeat;
+}
+.login_box{
+    width:434px;
+    position: absolute;
+    left:50%;
+    top:50%;
+    margin-top:-250px;
+    background: #fff;
+    padding-bottom: 30px;
+}
+.login_box .hd{
+    height:93px;
+    line-height:93px;
+    text-align: center;
+    color: #00c5ff;
+    font-size: 32px;
+}
+.login_box .inp_box{
+    height:80px;
+    position: relative;
+    padding-top: 19px;
+}
+.login_box .inp_box.active{
+    background-color: #f1f5f8;
+}
+.login_box .inp_box.active i{
+    display: inline-block;
+}
+.login_box .inp_box.active .inp_col{
+    box-shadow: none;
+}
+.login_box .inp_box i{
+    position: absolute;
+    width:7px;
+    top:0;
+    bottom:0;
+    background-color: #1683f1;
+    display: none;
+}
+.login_box .inp_box .inp_col{
+    display: inline-block;
+    width:362px;
+    height:42px;
+    background-color: #fff;
+    margin-left: 38px;
+    border:1px solid #eaeaed;
+    box-shadow: 3px 4px 10px #F6F8FC;
+    padding-left: 42px;
+}
+.login_box .inp_box .inp_col.user{
+    background: url('images/l_user.png') 10px 10px no-repeat #fff;
+}
+.login_box .inp_box .inp_col.psd{
+    background: url('images/l_psd.png') 14px 12px no-repeat #fff;
+}
+.login_box .inp_box .inp_col input{
+    height:40px;
+    line-height:20px;
+    padding: 11px 0;
+    width:300px;
+    border:none;
+}
+.login_box .inp_box .inp_col input:focus{
+    outline: none;
+    box-shadow:none;
+}
+.login_box .login_sub{
+    text-align: center;
+    margin-top: 34px;
+}
+.login_box .login_sub button{
+    width:360px;
+    height:46px;
+    line-height:46px;
+    background-color: #00c5ff;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    box-shadow: 3px 3px 6px #ACD5F4;
+}
+.login_footer{
+    width:740px;
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    margin-left: -370px;
+    color: #bcbde8;
+}
+.login_footer .j_link{
+    text-align: center;
+    border-bottom:1px solid #777bd2;
+    padding-bottom: 12px;
+}
+.login_footer .j_link .point{
+    display: inline-block;
+    width:28px;
+}
+.login_footer .copyright{
+    padding-top: 14px;
+    text-align: center;
+}

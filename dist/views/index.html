@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>即信·云通信管理后台</title>
+    <meta name="author" content="XuanWu Inc." />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/ng-table/css/ng-table.min.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/toastr/css/toastr.min.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/angular-w5c-validator/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/bootstrap-daterangepicker/css/daterangepicker.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/angucomplete-alt/css/angucomplete-alt.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/angular-tree-control/css/tree-control.css">
+    <link type="text/css" rel="stylesheet" href="styles/default/style.css" />
+    <link type="text/css" rel="stylesheet" href="styles/oss-skin/style.css" />
+    <script type="text/javascript" src="vendor/jquery/js/jquery.min.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="vendor/angular/js/angular.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-route/js/angular-route.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-strap/js/angular-strap.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-strap/js/angular-strap.tpl.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-ui-router/js/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="vendor/ng-breadcrumbs/js/ng-breadcrumbs.min.js"></script>
+    <script type="text/javascript" src="vendor/ng-table/js/ng-table.min.js"></script>
+    <script type="text/javascript" src="vendor/toastr/js/toastr.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-w5c-validator/js/w5cValidator.min.js"></script>
+    <script type="text/javascript" src="vendor/angularjs-dropdown-multiselect/js/angularjs-dropdown-multiselect.min.js"></script>
+    <script type="text/javascript" src="vendor/lodash/js/lodash.min.js"></script>
+    <script type="text/javascript" src="vendor/ng-file-upload/js/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="vendor/moment/js/moment.min.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap-daterangepicker/js/daterangepicker.js"></script>
+    <script type="text/javascript" src="vendor/angucomplete-alt/js/angucomplete-alt.js"></script>
+    <script type="text/javascript" src="vendor/angular-tree-control/js/angular-tree-control.js"></script>
+    <script type="text/javascript" src="vendor/d3/js/d3.min.js"></script>
+    <script type="text/javascript" src="vendor/echarts/js/echarts.min.js"></script>
+    <script type="text/javascript" src="scripts/tree/vertical.js"></script>
+    <script type="text/javascript" src="scripts/timepicker/position.js"></script>
+    <script type="text/javascript" src="scripts/timepicker/timepicker.js"></script>
+    <script type="text/javascript" src="scripts/config.js"></script>
+</head>
+
+<body ng-controller="indexCtrl">
+    <div id="main_page" class="page pos_r" style="display:none;">
+        <!--左侧导航栏 start-->
+        <div class="custom-nav">
+            <a ng-href="#/">
+                <div class="nav_icon" style="cursor: pointer;"></div>
+            </a>
+            <ul class="nav_list" ng-repeat="menu in menuList">
+                <li class="list" ng-class="{'active':hoverOnMenu||menu.actived}" ng-mouseenter="hoverOnMenu=true" ng-mouseleave="hoverOnMenu=false" ng-init="hoverOnMenu=false">
+                    <a ng-if="menu.lists==null || menu.lists.length==0" href="{{menu.url?menu.url:'javascript:;'}}" ng-click="activeMenu(menu.id)" class="item item_{{menu.id}}">{{menu.name}}</a>
+                    <a ng-if="menu.lists!=null && menu.lists.length!=0" href="javascript:;" class="item item_{{menu.id}}">{{menu.name}}</a>
+                    <ul class="sub_list" ng-class="{'show':hoverOnMenu && menu.lists!=null && menu.lists.length!=0,'after_sub_list':$index>menuList.length/2}">
+                        <li ng-repeat="subMenu in menu.lists"><a ng-href="{{subMenu.url?subMenu.url:'javascript:;'}}" ng-click="activeMenu(menu.id)">{{subMenu.name}}</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--左侧导航栏 end-->
+        <!--右侧内容 start-->
+        <div class="main_right">
+            <!--右侧头部 start-->
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="pull-left logo-name">
+                        <a href="javascript:;" ng-click="redirect('/');" title="管理后台" class="logo"></a>
+                    </div>
+                    <div class="navbar-text navbar-right">
+                        <ul class="navbar-ul">
+                            <li><a href="http://www.139130.com" target="_blank"><i class="fa fa-home"></i> 官方网站</a></li>
+                            <li ng-if="hasPermission('system.config.config')"><a href="#/sysmgmt/sysconfig"><i class="fa fa-cubes"></i> 系统配置</a></li>
+                            <li><a href="javascript:;" ng-click="$broadcast('reloadNotices');redirect('/sysmgmt/notice');"><i class="fa fa-comments"></i> 消息通知<span ng-class="{'red':unReadNoticeCount>0}" ng-show="unReadNoticeCount > 0">({{unReadNoticeCount}})</span></a></li>
+                            <li><a href="#/sysmgmt/personal"><i class="fa fa-users"></i> 个人管理</a></li>
+                            <li><a href="javascript:;" ng-click="logout()"><i class="fa fa-sign-out"></i> 退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--右侧头部 end-->
+                <!--<div class="nav-breadcrumb">
+                    <div class="page-entering-loading pull-right"><span class="img"></span> 数据加载中，请稍等...</div>
+                    <ol class="breadcrumb">
+                        <li ng-repeat="breadcrumb in breadcrumbs.get() track by breadcrumb.path" ng-class="{ active: $last }">
+                            <i ng-if="$first" class="glyphicon glyphicon-home"></i>
+                            <a ng-if="!$last" ng-href="#{{breadcrumb.path}}" ng-bind="breadcrumb.label" class="margin-right-xs"></a>
+                            <span ng-if="$last" ng-bind="breadcrumb.label"></span>
+                        </li>
+                    </ol>
+                </div>-->
+            </nav>
+            <div ng-if="menuList.length>0" ng-view class="index-ng-view"></div>
+        </div>-->
+        <!--右侧内容 end-->
+    </div>
+    <div class="fullscreen-posting" style="display:none;">
+        <div class="loading"><span class="img"></span> 正在提交数据，请稍等...</div>
+    </div>
+   <script type="text/javascript" src="vendor/requirejs/js/require.js" data-main="scripts/main"></script>
+    <!-- <script type="text/ng-template" id="modal/common.tpl.html">
+        <div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog {{diagCls ? diagCls : ''}}">
+                <div class="modal-content">
+                    <div class="modal-header" ng-show="title">
+                        <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" ng-bind="title" style="font-weight:bold;"></h4>
+                    </div>
+                    <div class="modal-body" ng-bind="content"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-default" ng-hide="closeBtn.hide" ng-click="$hide()">关闭
+                        </button>
+                        <button type="button" ng-if="!notFormInvalid" class="btn btn-sm btn-primary" ng-hide="okBtn.hide" ng-disabled="form.$invalid || form.$pristine" ng-click="okBtn.click()">{{okBtn.text}}
+                        </button>
+                        <button type="button" ng-if="notFormInvalid" class="btn btn-sm btn-primary" ng-hide="okBtn.hide" ng-click="okBtn.click()">{{okBtn.text}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="modal/commonOptinal.tpl.html">
+        <div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog {{diagCls ? diagCls : ''}}">
+                <div class="modal-content">
+                    <div class="modal-header" ng-show="title">
+                        <button type="button" class="close" aria-label="Close" ng-click="$hide()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" ng-bind="title" style="font-weight:bold;"></h4>
+                    </div>
+                    <div class="modal-body" ng-bind="content"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-danger" ng-hide="closeBtn.hide" ng-click="closeBtn.click()">{{closeBtn.text}}
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger" ng-hide="prevBtn.hide" ng-click="prevBtn.click()">{{prevBtn.text}}
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" ng-hide="nextBtn.hide" ng-disabled="form.$invalid || form.$pristine" ng-click="nextBtn.click()">{{nextBtn.text}}
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" ng-hide="okBtn.hide" ng-hide="okBtn.hide" ng-disabled="form.$invalid || form.$pristine" ng-click="okBtn.click()">{{okBtn.text}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="modal/confirm.tpl.html">
+        <div class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="font-weight:bold;">操作确认</h4>
+                    </div>
+                    <div class="modal-body text-center" ng-bind-html="content"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-danger" ng-click="canBtn.click()">取消</button>
+                        <button type="button" class="btn btn-sm btn-primary" ng-click="okBtn.click()">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="modal/process.tpl.html">
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" ng-show="title">
+                        <h4 class="modal-title" ng-bind-html="title"></h4>
+                    </div>
+                    <div class="modal-body" scroll-glue>
+                        <p class="text-info" ng-repeat="msg in proc.msgs track by $index">
+                            <b>{{($index + 1) + '. '}}</b>{{msg}}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-info" ng-click="okBtn.click()">后台运行</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="modal/loading.tpl.html">
+        <div class="text-center">
+            <div ng-if="loadState==0"><img ng-src="{{img}}/loading.gif" alt="" /> <span ng-bind="loadingContent"></span></div>
+            <div ng-if="loadState==1" ng-bind="loadedContent"></div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="ng-table/headers/checkbox.html">
+        <input type="checkbox" ng-model="selectAll.checked" ng-click="selAll();" />
+    </script>
+    <script type="text/ng-template" id="ng-table/headers/othercheckbox.html">
+        <input type="checkbox" ng-model="selectOtherAll.checked" />
+    </script>
+    <script type="text/ng-template" id="ng-table/column/toggle.html">
+        <div class="popover" id="colsPopDiv">
+            <div class="arrow"></div>
+            <h3 class="popover-title">选择显示的列</h3>
+            <div class="popover-content" style="min-width:180px;padding:0 10px;">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="master" ng-click="selectAllCols(master, cols)" /> 全选 </label>
+                </div>
+                <div ng-repeat="col in cols" class="checkbox" ng-show="col.toggle">
+                    <label>
+                        <input type="checkbox" ng-model="col.show" />{{col.title}} </label>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="popover/popover.string.tpl.html">
+        <div class="popover" style="max-width:330px;">
+            <div class="arrow"></div>
+            <div class="popover-content">{{popover.string}}</div>
+        </div>
+    </script>-->
+</body>
+
+</html>

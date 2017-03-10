@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>即信·云通信平台 - 后台用户登录</title>
+    <meta name="author" content="XuanWu Inc." />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/angular-w5c-validator/css/style.css" />
+    <link type="text/css" rel="stylesheet" href="vendor/toastr/css/toastr.min.css" />
+    <link type="text/css" rel="stylesheet" href="styles/default/login.css" />
+    <script type="text/javascript" src="vendor/jquery/js/jquery.min.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="vendor/angular/js/angular.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-route/js/angular-route.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-strap/js/angular-strap.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-strap/js/angular-strap.tpl.min.js"></script>
+    <script type="text/javascript" src="vendor/angular-w5c-validator/js/w5cValidator.min.js"></script>
+    <script type="text/javascript" src="vendor/toastr/js/toastr.min.js"></script>
+    <script type="text/javascript" src="scripts/config.js"></script>
+</head>
+
+<body ng-controller="loginCtrl">
+    <div class="login_wrap">
+        <div class="login_box" ng-init="loginBtnF = 0;">
+            <form class="form-horizontal w5c-form" name="loginForm" w5c-form-validate="" novalidate>
+                <div class="hd">云通信管理后台</div>
+                <div class="inp_box" ng-class="{active: loginBtnF==0}">
+                    <i></i>
+                    <div class="inp_col user">
+                        <input type="text" placeholder="用户名" ng-focus="loginBtnF = 0" id="username" ng-model="user.name" required />
+                    </div>
+                </div>
+                <div class="inp_box" ng-class="{active: loginBtnF==1}">
+                    <i></i>
+                    <div class="inp_col psd">
+                        <input type="password" autocomplete="new-password" placeholder="密码" ng-focus="loginBtnF = 1" id="password" ng-model="user.password" required />
+                    </div>
+                </div>
+                <div class="login_sub">
+                    <button type="submit" ng-disabled="loginForm.$invalid || loginForm.$pristine" ng-click="doLogin()">登 录</button>
+                </div>
+            </form>
+        </div>
+        <div class="login_footer">
+            <div class="j_link">
+                <a href="http://www.139130.com" target="_blank">即信官网</a>
+                <span class="point">·</span>
+                <a href="http://211.147.239.62:8088" target="_blank">MOS后台</a>
+                <span class="point">·</span>
+                <a href="http://211.147.239.62:8400/backend/login" target="_blank">400后台</a>
+                <span class="point">·</span>
+                <a href="http://traffic.wxchina.com/backend/login" target="_blank">享流量后台</a>
+                <span class="point">·</span>
+                <a href="http://oss.wxchina.com" target="_blank">数据平台</a>
+                <span class="point">·</span>
+                <a href="http://www.tongbupan.com/login" target="_blank">同步盘</a>
+            </div>
+            <div class="copyright"><a href="http://www.wxchina.com" target="_blank">广州市玄武无线科技股份有限公司</a></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="vendor/requirejs/js/require.js" data-main="scripts/login/main"></script>
+</body>
+
+</html>

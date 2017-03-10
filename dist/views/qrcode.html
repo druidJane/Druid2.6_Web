@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <script type="text/javascript" src="vendor/jquery/js/jquery.min.js"></script>
+</head>
+<body>
+    <input id='telphone' type="text"/>
+    <button onclick="gen()">genCode</button>
+<script type="application/javascript">
+    function gen() {
+        var tel = document.getElementById('telphone').value;
+        console.log("tel="+tel);
+        var param={
+            telphone:tel
+        };
+        $.ajax({
+            url: 'http://162.251.121.104/genQrcode',
+            data: param,
+            type:"POST",
+            dataType:'text',
+            jsonp:"jsoncallback",
+            success: function(msg){
+                console.log(msg);
+                alert(msg);
+            },
+
+            error:function(xhr, ajaxOptions, thrownError){
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+</script>
+</body>

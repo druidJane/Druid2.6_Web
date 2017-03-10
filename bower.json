@@ -1,0 +1,115 @@
+{
+    "name": "web-backend",
+    "description": "Xuanwu ytx platform",
+    "main": "",
+    "authors": [
+        "xuxuefang@wxchina.com"
+    ],
+    "license": "ISC",
+    "keywords": [
+        "test"
+    ],
+    "moduleType": [
+        "node"
+    ],
+    "homepage": "",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components"
+    ],
+    "dependencies": {
+        "jquery": "",
+        "angular": "",
+        "angular-route": "",
+        "angular-strap": "",
+        "angular-ui-router": "",
+        "bootstrap": "",
+        "font-awesome": "",
+        "ng-breadcrumbs": "",
+        "ng-table": "",
+        "requirejs": "",
+        "toastr": "",
+        "angular-w5c-validator": "",
+        "angularjs-dropdown-multiselect": "",
+        "ng-file-upload": "",
+        "lodash": "",
+        "bootstrap-daterangepicker": "2.1.24",
+        "angucomplete-alt": "",
+        "angular-tree-control":"",
+        "echarts": "3.2.3",
+        "d3": "v3.5.17"
+    },
+    "overrides": {
+        "normalizeMulti": [{
+            "dependencies": ["jquery", "angular", "angular-route", "angular-strap", "bootstrap", "font-awesome", "ng-table", "toastr", "angularjs-dropdown-multiselect", "lodash", "ng-file-upload", "angucomplete-alt","angular-tree-control", "echarts"],
+            "normalize": {
+                "fonts": ["*.otf", "*.eot", "*.svg", "*.ttf", "*.woff", "*.woff2"],
+                "images": ["*.png"],
+                "js": ["*.js", "*.map"]
+            }
+        }],
+        "jquery": {
+            "main": ["dist/*"]
+        },
+        "angular": {
+            "main": ["*.js", "*.map"]
+        },
+        "angular-route": {
+            "main": ["*.js", "*.map"]
+        },
+        "angular-strap": {
+            "main": ["dist/*.js", "dist/*.map"]
+        },
+        "angular-ui-router": {
+            "main": ["release/*.js"]
+        },
+        "bootstrap": {
+            "main": ["dist/js/*", "dist/css/*", "dist/fonts/*"],
+            "normalize": {
+                "js": ["*.less"],
+                "css": ["*.map"]
+            }
+        },
+        "font-awesome": {
+            "main": ["css/*", "fonts/*"]
+        },
+        "ng-table": {
+            "main": ["dist/*"]
+        },
+        "toastr": {
+            "main": ["toastr.*"]
+        },
+        "angular-w5c-validator": {
+            "main": ["*.js", "*.css"]
+        },
+        "angularjs-dropdown-multiselect": {
+            "main": ["dist/*.js"]
+        },
+        "lodash": {
+            "main": ["dist/*.js"]
+        },
+        "ng-file-upload": {
+            "main": ["*.js", "*.css"]
+        },
+        "angucomplete-alt": {
+            "main": ["dist/*.js", "*.js", "*.css"]
+        },
+        "angular-tree-control": {
+            "main": ["css/*.css","*.js","images/*.png"]
+        },
+        "echarts": {
+            "main": ["dist/*.js"]
+        },
+        "d3": {
+            "main": ["*.js"]
+        },
+        "moment": {
+            "main": ["*.js","min/*.js"]
+        }
+    },
+    "resolutions": {
+        "angular": "1.5.9",
+        "jquery": "^3.1.0"
+    }
+}
